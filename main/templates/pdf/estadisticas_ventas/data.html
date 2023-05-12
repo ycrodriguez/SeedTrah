@@ -1,0 +1,77 @@
+{% load static %}
+
+{% block page_title %}
+
+{% endblock %}
+
+
+
+{% block page_header %}
+    <table>
+        <tbody>
+        <tr>
+            <td class="img">
+                <img src=""
+                     alt="Logo">
+                <h2>Seed Trak</h2>
+                <h3>Municipio: Pinar del Río</h3>
+            </td>
+            <td class="name">
+                <p>Fecha: {{ data }}</p>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <h1 style="text-align: center">Estadísticas de Ventas</h1>
+{% endblock %}
+
+
+{% block content %}
+    <table border="1">
+        <thead>
+        <tr>
+            <td>Año</td>
+            <td>Mes</td>
+            <td>Cantidad de Ventas</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% if ventas %}
+            {% for v in ventas %}
+                <tr>
+                    {% for i in v %}
+                        <td>{{ i }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="3">No existen ventas</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+    <br>
+    <h3>Promedio de ventas mensuales: {{ pm }}</h3>
+    <h3>Promedio de ventas anuales {{ pa }}:</h3>
+    <style type="text/css">
+        thead tr td {
+            font-weight: bold;
+        }
+
+        td {
+            text-align: center;
+            padding: 3px;
+        }
+
+        .img {
+            width: 150px;
+            height: 150px;
+            text-align: left;
+        }
+
+        .name {
+            text-align: right;
+        }
+    </style>
+{% endblock %}

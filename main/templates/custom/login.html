@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Login</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'semilla.png' %}"/>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-5/css/bootstrap.css' %}">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h1 class="text-center text-light mt-5">SeedTrak</h1>
+            <div class="card my-2">
+                <form method="POST" class="p-lg-5">
+                    {% csrf_token %}
+                    <div class="text-center">
+                        <img src="{% static 'semilla.png' %}" width="200px">
+                        <h2 class="text-light">Login</h2>
+                    </div>
+                    <div class="mb-3">
+                        {{ form.username }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.password }}
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary px-5 mb-5 w-100">Entrar</button>
+                    </div>
+                    {% if msg %}
+                        <div class="btn btn-danger form-control">
+                            <h4 class="text-light">Usuario o contraseña incorrectos</h4>
+                        </div>
+                    {% endif %}
+                    <div id="emailHelp" class="form-text text-center mb-5 text-light">
+                        No Registrado? <a href="{% url 'register' %}" class="text-light fw-bold"> Create una cuenta</a>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/bootstrap-5/js/bootstrap.js' %}"></script>
+</body>
+</html>

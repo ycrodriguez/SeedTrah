@@ -1,0 +1,81 @@
+{% load static %}
+
+{% block page_title %}
+
+{% endblock %}
+
+
+
+{% block page_header %}
+    <table>
+        <tbody>
+        <tr>
+            <td class="img">
+                <img src=""
+                     alt="Logo">
+                <h2>Seed Trak</h2>
+                <h3>Municipio: Pinar del Río</h3>
+            </td>
+            <td class="name">
+                <p>Fecha: {{ data }}</p>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <h1 style="text-align: center">Reporte de ventas por producto</h1>
+{% endblock %}
+
+
+{% block content %}
+    <table border="1">
+        <thead>
+        <tr>
+            <td colspan="4">{{ producto.semilla.codigo }}</td>
+        </tr>
+        <tr>
+            <td>Lugar de Compra</td>
+            <td>Valor Total</td>
+            <td>Cantidad Vendida</td>
+            <td>Cliente</td>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% if ventas %}
+            {% for i in ventas %}
+                <tr>
+                    <td>{{ i.lugar_compra }}</td>
+                    <td>{{ i.valor_total }}</td>
+                    <td>{{ i.cant_vendida }}</td>
+                    <td>{{ i.cliente }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="4"> No existen</td>
+            </tr>
+        {% endif %}
+
+        </tbody>
+    </table>
+    <style type="text/css">
+        thead tr td {
+            font-weight: bold;
+        }
+
+        td {
+            text-align: center;
+            padding: 3px;
+        }
+
+        .img {
+            width: 150px;
+            height: 150px;
+            text-align: left;
+        }
+
+        .name {
+            text-align: right;
+        }
+    </style>
+{% endblock %}

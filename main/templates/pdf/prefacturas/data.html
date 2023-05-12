@@ -1,0 +1,83 @@
+{% load static %}
+
+{% block page_title %}
+
+{% endblock %}
+
+
+
+{% block page_header %}
+    <table>
+        <tbody>
+        <tr>
+            <td class="img">
+                <img src=""
+                     alt="Logo">
+                <h2>Seed Trak</h2>
+                <h3>Municipio: Pinar del Río</h3>
+            </td>
+            <td class="name">
+                <p>Fecha: {{ data }}</p>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <h1 style="text-align: center">Reporte Prefacturas</h1>
+{% endblock %}
+
+
+{% block content %}
+    <table border="1">
+        <thead>
+        <tr>
+            <td colspan="5">Prefacturas</td>
+        </tr>
+        <tr>
+            <td>No.</td>
+            <td>Costo Total</td>
+            <td>Costo Unitário</td>
+            <td>Lugar de Recogida</td>
+            <td>Almacén</td>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% if prefacturas %}
+            {% for i in prefacturas %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.costo_total }}</td>
+                    <td>{{ i.costo_unitario }}</td>
+                    <td>{{ i.lugar_recogida }}</td>
+                    <td>{{ i.almacen }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="5"> No existen prefacturas</td>
+            </tr>
+        {% endif %}
+
+        </tbody>
+    </table>
+    <style type="text/css">
+        thead tr td {
+            font-weight: bold;
+        }
+
+        td {
+            text-align: center;
+            padding: 3px;
+        }
+
+        .img {
+            width: 150px;
+            height: 150px;
+            text-align: left;
+        }
+
+        .name {
+            text-align: right;
+        }
+    </style>
+{% endblock %}
