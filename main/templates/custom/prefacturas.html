@@ -2,5 +2,89 @@
 {% block title %}Prefacturas{% endblock %}
 
 {% block content %}
-
+    {% if cliente %}
+        {% if cliente.entidad_estatal or cliente.persona_natural %}
+            <div class="container">
+                <div class="row">
+                    <h1 class="text-light text-center">Prefacturas</h1>
+                </div>
+                <table class="table table-success table-striped">
+                    <thead>
+                    <tr>
+                        <td><h5>ID</h5></td>
+                        <td><h5>Costo Total</h5></td>
+                        <td><h5>Costo Unitario</h5></td>
+                        <td><h5>Cantidad(Lb)</h5></td>
+                        <td><h5>Lugar Recogida</h5></td>
+                        <td><h5>Estado</h5></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for p in prefactura %}
+                        <tr>
+                            <td>{{ p.pk }}.</td>
+                            <td>{{ p.costo_total }}</td>
+                            <td>{{ p.costo_unitario }}</td>
+                            <td>{{ p.cantidad }}</td>
+                            <td>{{ p.lugar_recogida }}</td>
+                            <td>
+                                {% if not p.venta %}
+                                    <a type="button" data-bs-toggle="modal"
+                                       data-bs-target="#ModalEliminarPref{{ p.pk }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="red"
+                                             class="bi bi-x-lg" viewBox="0 0 16 16">
+                                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                                        </svg>
+                                    </a>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="ModalEliminarPref{{ p.pk }}" tabindex="-1"
+                                         aria-labelledby="exampleModalLabel"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Eliminar
+                                                        Prefactura</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Desea eliminar esta prefacturas?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Cancelar
+                                                    </button>
+                                                    <a type="button" href="/delete_prefactura/{{ p.pk }}/"
+                                                       class="btn btn-danger">Aceptar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="blue"
+                                         class="bi bi-check-lg" viewBox="0 0 16 16">
+                                        <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+                                    </svg>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <p class="text-light text-center">Las prefacturas seran eliminadas después de 15 días de creadas.
+                Antes de este tiempo deberá realizar la compra o la perderá.</p>
+            </div>
+        {% else %}
+            <div class="container text-center" style="margin-top: 25%">
+                <h2 class="text-light">Necesitamos sus datos personales para continuar</h2>
+                <a class="btn btn-primary" href="{% url 'add_cliente' %}">Iniciar</a>
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="container text-center" style="margin-top: 25%">
+            <h2 class="text-light">Necesitamos sus datos personales para continuar</h2>
+            <a class="btn btn-primary" href="{% url 'add_cliente' %}">Iniciar</a>
+        </div>
+    {% endif %}
 {% endblock %}

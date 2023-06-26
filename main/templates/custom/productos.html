@@ -1,6 +1,49 @@
 {% extends 'custom/base.html' %}
+{% load static %}
 {% block title %}Productos{% endblock %}
 
 {% block content %}
-
+    {% if cliente %}
+        {% if cliente.entidad_estatal or cliente.persona_natural %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h1 class="text-light text-center">Productos en Oferta</h1>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    {% for pro in producto %}
+                        <div class="col-md-4">
+                            {% if pro.imagen %}
+                                <img src="{{ pro.imagen.url }}"
+                                     class="img-responsive" width="300" height="200" style="border-radius: 10%">
+                            {% else %}
+                                <img src="{% static 'assets/seed-icon-free-vector.jpg' %}"
+                                     class="img-responsive" width="300" height="200" style="border-radius: 10%">
+                            {% endif %}
+                            <div class="caption">
+                                <h6 class="text-light">{{ pro.semilla.nombre }}</h6>
+                                <p class="text-light">Descripcion: {{ pro.descripcion }}</p>
+                                <p class="text-light">Presio: {{ pro.valor }}\Libra</p>
+                                <p class="text-light">Cantidad Existente: {{ pro.cantidad_existente }} Lb</p>
+                                <p class="text-light">Cantidad Vendida: {{ pro.cantidad_vendida }} Lb</p>
+                                <a href="/add_prefactura/{{ pro.pk }}/" class="btn btn-success">Lo quero</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            <div class="container text-center" style="margin-top: 25%">
+                <h2 class="text-light">Necesitamos sus datos personales para continuar</h2>
+                <a class="btn btn-primary" href="{% url 'add_cliente' %}">Iniciar</a>
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="container text-center" style="margin-top: 25%">
+            <h2 class="text-light">Necesitamos sus datos personales para continuar</h2>
+            <a class="btn btn-primary" href="{% url 'add_cliente' %}">Iniciar</a>
+        </div>
+    {% endif %}
 {% endblock %}

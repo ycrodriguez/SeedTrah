@@ -13,6 +13,7 @@ from os.path import join
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -158,6 +159,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = join(BASE_DIR, 'root', 'static')
+
+MEDIA_ROOT = join(BASE_DIR, 'root', 'media')
+MEDIA_URL = 'media/'
 
 STATICFILES_DIRS = [
     join(BASE_DIR / 'static'),
@@ -171,5 +176,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Sessions
 # https://docs.djangoproject.com/en/4.1/topics/http/sessions/
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_COOKIE_AGE = 600
+SESSION_COOKIE_AGE = 3200
 SESSION_SAVE_EVERY_REQUEST = True

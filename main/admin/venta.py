@@ -11,8 +11,8 @@ from main.models import Venta
 
 @admin.register(Venta)
 class VentaAdmin(admin.ModelAdmin):
-    search_fields = ['lugar_compra']
-    list_display = ['lugar_compra', 'valor_total', 'cliente', 'fecha', 'ventas_por_lugar_de_compra']
+    search_fields = ['lugar_compra', 'fecha']
+    list_display = ['prefactura', 'lugar_compra', 'fecha', 'ventas_por_lugar_de_compra']
     form = VentaForm
     change_list_template = 'admin/estadisticas_chabge_list_template.html'
 
@@ -60,19 +60,31 @@ class VentaAdmin(admin.ModelAdmin):
             return array_ventas
 
         def promedio_mensual(self):
-            primero = Venta.objects.all().order_by('-fecha').last()
-            ultimo = Venta.objects.all().order_by('-fecha').first()
-            return Venta.objects.all().count() / (
-                    12 * (ultimo.fecha.year - primero.fecha.year) + (ultimo.fecha.month - primero.fecha.month))
+            ventas = Venta.objects.all()
+            if ventas:
+                if ventas.count() == 1:
+                    return 1
+                else:
+                    try:
+                        primero = Venta.objects.all().order_by('-fecha').last()
+                        ultimo = Venta.objects.all().order_by('-fecha').first()
+                        return ventas.count() / (
+                                12 * (ultimo.fecha.year - primero.fecha.year) + (
+                                ultimo.fecha.month - primero.fecha.month))
+                    except:
+                        return ventas.count()
+            else:
+                return 0
 
         def promedio_anual(self):
+            ventas = Venta.objects.all()
             primero = Venta.objects.all().order_by('-fecha').last()
             ultimo = Venta.objects.all().order_by('-fecha').first()
             try:
-                promedio = Venta.objects.all().count() / ((ultimo.fecha.year - primero.fecha.year) + 1)
+                promedio = ventas.count() / ((ultimo.fecha.year - primero.fecha.year) + 1)
                 return promedio
             except:
-                return Venta.objects.all().count()
+                return ventas.count()
 
         def get(self, request, *args, **kwargs):
             return exportPDF('pdf/estadisticas_ventas/data.html',

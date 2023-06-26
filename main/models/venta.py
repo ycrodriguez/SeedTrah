@@ -4,11 +4,8 @@ from django.utils import timezone
 
 class Venta(models.Model):
     lugar_compra = models.CharField(max_length=255, verbose_name='Lugar de Compra')
-    valor_total = models.FloatField(verbose_name='Valor total', default=0)
-    cant_vendida = models.IntegerField(verbose_name='Cantidad Vendida', default=0)
     fecha = models.DateTimeField(verbose_name='Fecha', default=timezone.now)
-    cliente = models.ForeignKey('main.Cliente', on_delete=models.CASCADE, verbose_name='Cliente')
-    producto = models.ManyToManyField('main.Producto')
+    prefactura = models.OneToOneField('main.Prefactura', on_delete=models.CASCADE, verbose_name='Prefactura', null=True)
 
     class Meta:
         verbose_name = 'Venta'

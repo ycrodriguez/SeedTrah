@@ -10,4 +10,4 @@ class Semilla(models.Model):
         verbose_name_plural = 'Semillas'
 
     def __str__(self):
-        return self.codigo
+        return self.nombre

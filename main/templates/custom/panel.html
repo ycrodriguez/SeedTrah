@@ -1,6 +1,78 @@
 {% extends 'custom/base.html' %}
+{% load static %}
 {% block title %}Panel de Control{% endblock %}
 
-{% block content %}
+{% block link %}
+{% endblock %}
 
+{% block content %}
+    {% if cliente %}
+        {% if cliente.entidad_estatal or cliente.persona_natural %}
+            <section class="container">
+                <div class="container-fluid">
+                    <div class="row">
+                        <h1 class="text-light col-lg-12">Panel de Control</h1>
+                    </div>
+                    <div class="row">
+                        <div class="card text-white bg-primary col-sm-3">
+                            <div class="card-header">Productos</div>
+                            <div class="card-body">
+                                <h5 class="card-title">Cantidad de productos en oferta</h5>
+                                <p class="card-text text-center" style="font-size: 3rem">{{ cant_producto }}</p>
+                            </div>
+                        </div>
+                        <div class="card text-white bg-secondary col-sm-3">
+                            <div class="card-header">Prefacturas</div>
+                            <div class="card-body">
+                                <h5 class="card-title">Cantidad de prefacturas</h5>
+                                <p class="card-text text-center" style="font-size: 3rem">{{ cant_prefactura }}</p>
+                            </div>
+                        </div>
+                        <div class="card text-white bg-success col-sm-3">
+                            <div class="card-header">Compras</div>
+                            <div class="card-body">
+                                <h5 class="card-title">Compras realizadas</h5>
+                                <p class="card-text text-center" style="font-size: 3rem">{{ cant_ventas }}</p>
+                            </div>
+                        </div>
+                        <div class="card text-white bg-danger col-sm-3">
+                            <div class="card-header">Productos</div>
+                            <div class="card-body">
+                                <h5 class="card-title">Factura</h5>
+                                <p class="card-text text-center" style="font-size: 3rem">{{ gasto }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <h2 class="text-light text-center">Semillas que ofertamos</h2>
+                        {% for semilla in semillas %}
+                            <ul class="list-group">
+                                <li class="list-group-item bg-secondary text-light">{{ semilla.codigo }} {{ semilla.nombre }}</li>
+                            </ul>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+        {% else %}
+            <div class="container text-center" style="margin-top: 25%">
+                <h2 class="text-light">Necesitamos sus datos personales para continuar</h2>
+                <a class="btn btn-primary" href="{% url 'add_cliente' %}">Iniciar</a>
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="container text-center" style="margin-top: 25%">
+            <h2 class="text-light">Necesitamos sus datos personales para continuar</h2>
+            <a class="btn btn-primary" href="{% url 'add_cliente' %}">Iniciar</a>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block footer-info %}
+    <h1 class="text-center text-light">{{ cliente.empresa.nombre }}</h1>
+    <p class="text-light">Correo: {{ cliente.empresa.correo }}</p>
+    <p class="text-light">Dirección: {{ cliente.empresa.direccion }}</p>
+    <p class="text-light">Teléfono: {{ cliente.empresa.telefono }}</p>
+    <p class="text-light">Misión: {{ cliente.empresa.mision }}</p>
+    <p class="text-light">Visión: {{ cliente.empresa.vision }}</p>
 {% endblock %}

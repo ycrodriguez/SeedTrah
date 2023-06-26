@@ -30,13 +30,15 @@
     <table border="1">
         <thead>
         <tr>
-            <td colspan="4">{{ producto.semilla.codigo }}</td>
+            <td colspan="6">{{ producto.semilla.codigo }} {{ producto.semilla.nombre }}</td>
         </tr>
         <tr>
+            <td>No.</td>
             <td>Lugar de Compra</td>
-            <td>Valor Total</td>
-            <td>Cantidad Vendida</td>
-            <td>Cliente</td>
+            <td>Fecha</td>
+            <td>Prefactura</td>
+            <td>Almacen</td>
+            <td>Recaudado</td>
         </tr>
         </thead>
         <tbody>
@@ -44,20 +46,22 @@
         {% if ventas %}
             {% for i in ventas %}
                 <tr>
-                    <td>{{ i.lugar_compra }}</td>
-                    <td>{{ i.valor_total }}</td>
-                    <td>{{ i.cant_vendida }}</td>
-                    <td>{{ i.cliente }}</td>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.0.lugar_compra }}</td>
+                    <td>{{ i.0.fecha }}</td>
+                    <td>{{ i.0.prefactura }}</td>
+                    <td>{{ i.0.prefactura.almacen }}</td>
+                    <td>{{ i.1 }}</td>
                 </tr>
             {% endfor %}
         {% else %}
             <tr>
-                <td colspan="4"> No existen</td>
+                <td colspan="6"> No existen</td>
             </tr>
         {% endif %}
-
         </tbody>
     </table>
+    {{ p }}
     <style type="text/css">
         thead tr td {
             font-weight: bold;

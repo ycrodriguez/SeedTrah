@@ -11,8 +11,8 @@ class Empresa(models.Model):
     telefono = models.CharField(max_length=255, verbose_name='Teléfono', blank=True)
 
     class Meta:
-        verbose_name = 'Empresas'
-        verbose_name_plural = 'Empresas'
+        verbose_name = 'Empresa'
+        verbose_name_plural = 'Empresa'
 
     def __str__(self):
         return self.nombre

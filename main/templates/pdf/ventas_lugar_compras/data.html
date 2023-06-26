@@ -34,9 +34,9 @@
         </tr>
         <tr>
             <td>No.</td>
-            <td>Valor Total</td>
-            <td>Cantidad Vendida</td>
-            <td>Cliente</td>
+            <td>Lugar de Compra</td>
+            <td>Fecha</td>
+            <td>Prefactura</td>
         </tr>
         </thead>
         <tbody>
@@ -44,9 +44,9 @@
             {% for i in ventas %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td>{{ i.valor_total }}</td>
-                    <td>{{ i.cant_vendida }}</td>
-                    <td>{{ i.cliente }}</td>
+                    <td>{{ i.lugar_compra }}</td>
+                    <td>{{ i.fecha }}</td>
+                    <td>{{ i.prefactura }}</td>
                 </tr>
             {% endfor %}
         {% else %}
