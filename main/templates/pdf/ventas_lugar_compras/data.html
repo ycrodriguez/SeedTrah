@@ -30,10 +30,11 @@
     <table border="1">
         <thead>
         <tr>
-            <td colspan="4">{{ lc }}</td>
+            <td colspan="5">{{ lc }}</td>
         </tr>
         <tr>
             <td>No.</td>
+            <td>Cliente</td>
             <td>Lugar de Compra</td>
             <td>Fecha</td>
             <td>Prefactura</td>
@@ -44,6 +45,7 @@
             {% for i in ventas %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
+                    <td>{{ i.prefactura.cliente }}</td>
                     <td>{{ i.lugar_compra }}</td>
                     <td>{{ i.fecha }}</td>
                     <td>{{ i.prefactura }}</td>
@@ -51,7 +53,7 @@
             {% endfor %}
         {% else %}
             <tr>
-                <td colspan="4">No existen ventas</td>
+                <td colspan="5">No existen ventas</td>
             </tr>
         {% endif %}
         </tbody>

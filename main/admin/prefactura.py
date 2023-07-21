@@ -8,8 +8,9 @@ from main.models import Prefactura
 
 @admin.register(Prefactura)
 class PrefacturaAdmin(admin.ModelAdmin):
-    search_fields = ['pk']
+    search_fields = ['pk', 'cantidad', 'costo_total', 'costo_unitario', 'lugar_recogida']
     list_display = ['id', 'cantidad', 'costo_total', 'costo_unitario', 'lugar_recogida', 'cliente']
+    list_filter = ['cliente']
     change_list_template = 'admin/prefactura_change_list_template.html'
 
     def id(self):

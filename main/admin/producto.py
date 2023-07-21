@@ -12,9 +12,13 @@ from main.admin.forms.producto import ProductoFormAdmin
 @admin.register(Producto)
 class ProductoAdmin(admin.ModelAdmin):
     search_fields = ['tipo', 'cantidad_existente', 'cantidad_vendida', 'valor']
-    list_display = ['semilla', 'tipo', 'cantidad_existente', 'cantidad_vendida', 'valor', 'almacen',
+    list_display = ['semilla', 'identificador', 'tipo', 'cantidad_existente', 'cantidad_vendida', 'valor', 'almacen',
                     'ventas_por_producto']
+    list_filter = ['semilla', 'almacen']
     form = ProductoFormAdmin
+
+    def identificador(self, obj):
+        return obj.semilla.codigo
 
     def get_urls(self):
         url = super().get_urls()

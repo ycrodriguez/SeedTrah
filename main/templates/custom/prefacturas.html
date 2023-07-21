@@ -88,3 +88,12 @@
         </div>
     {% endif %}
 {% endblock %}
+
+{% block footer-info %}
+    <h1 class="text-center text-light">{{ cliente.empresa.nombre }}</h1>
+    <p class="text-light">Correo: {{ cliente.empresa.correo }}</p>
+    <p class="text-light">Dirección: {{ cliente.empresa.direccion }}</p>
+    <p class="text-light">Teléfono: {{ cliente.empresa.telefono }}</p>
+    <p class="text-light">Misión: {{ cliente.empresa.mision }}</p>
+    <p class="text-light">Visión: {{ cliente.empresa.vision }}</p>
+{% endblock %}

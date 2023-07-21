@@ -30,7 +30,7 @@
     <table border="1">
         <thead>
         <tr>
-            <td colspan="5">Prefacturas</td>
+            <td colspan="6">Prefacturas</td>
         </tr>
         <tr>
             <td>No.</td>
@@ -38,6 +38,7 @@
             <td>Costo Unitário</td>
             <td>Lugar de Recogida</td>
             <td>Almacén</td>
+            <td>Cliente</td>
         </tr>
         </thead>
         <tbody>
@@ -50,11 +51,12 @@
                     <td>{{ i.costo_unitario }}</td>
                     <td>{{ i.lugar_recogida }}</td>
                     <td>{{ i.almacen }}</td>
+                    <td>{{ i.cliente }}</td>
                 </tr>
             {% endfor %}
         {% else %}
             <tr>
-                <td colspan="5"> No existen prefacturas</td>
+                <td colspan="6"> No existen prefacturas</td>
             </tr>
         {% endif %}
 

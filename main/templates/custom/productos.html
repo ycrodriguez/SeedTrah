@@ -11,6 +11,25 @@
                         <h1 class="text-light text-center">Productos en Oferta</h1>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-9"></div>
+                    <div class="col-3">
+                        <form action="{% url 'search' %}" method="GET">
+                            <div class="input-group">
+                                <input type="text" name="q" id="form1" class="form-control" placeholder="Buscar"/>
+                                <button type="submit" class="btn btn-primary">
+                                    <i>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-search" viewBox="0 0 16 16">
+                                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                        </svg>
+                                    </i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <br>
                 <div class="row">
                     {% for pro in producto %}
@@ -46,4 +65,13 @@
             <a class="btn btn-primary" href="{% url 'add_cliente' %}">Iniciar</a>
         </div>
     {% endif %}
+{% endblock %}
+
+{% block footer-info %}
+    <h1 class="text-center text-light">{{ cliente.empresa.nombre }}</h1>
+    <p class="text-light">Correo: {{ cliente.empresa.correo }}</p>
+    <p class="text-light">Dirección: {{ cliente.empresa.direccion }}</p>
+    <p class="text-light">Teléfono: {{ cliente.empresa.telefono }}</p>
+    <p class="text-light">Misión: {{ cliente.empresa.mision }}</p>
+    <p class="text-light">Visión: {{ cliente.empresa.vision }}</p>
 {% endblock %}

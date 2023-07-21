@@ -12,9 +12,13 @@ from main.models import Venta
 @admin.register(Venta)
 class VentaAdmin(admin.ModelAdmin):
     search_fields = ['lugar_compra', 'fecha']
-    list_display = ['prefactura', 'lugar_compra', 'fecha', 'ventas_por_lugar_de_compra']
+    list_display = ['prefactura', 'cliente', 'lugar_compra', 'fecha', 'ventas_por_lugar_de_compra']
     form = VentaForm
     change_list_template = 'admin/estadisticas_chabge_list_template.html'
+
+    def cliente(self, obj):
+        if obj:
+            return obj.prefactura.cliente
 
     def get_urls(self):
         urls = super().get_urls()

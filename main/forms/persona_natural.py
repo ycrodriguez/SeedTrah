@@ -8,5 +8,6 @@ class PersonaNaturalForm(forms.ModelForm):
         model = PersonaNatural
         fields = ['ci']
         widgets = {
-            'ci': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Carne de Identidad'}),
+            'ci': forms.NumberInput(attrs={'class': 'form-control persona-natural', 'placeholder': 'Carne de Identidad',
+                                           'id': 'persona-natural-ci'}),
         }

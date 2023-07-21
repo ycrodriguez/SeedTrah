@@ -126,6 +126,8 @@
         </div>
     </div>
 </footer>
-<script src="{% static 'js/bootstrap-5/js/bootstrap.js' %}"></script>
+{% block scriptjs %}
+    <script src="{% static 'js/bootstrap-5/js/bootstrap.js' %}"></script>
+{% endblock %}
 </body>
 </html>

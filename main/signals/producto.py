@@ -11,4 +11,4 @@ def delete_imagen_posdelete(sender, instance: Producto, **kwargs):
         try:
             os.remove(instance.imagen.path)
         except:
-            print('Error')
+            pass

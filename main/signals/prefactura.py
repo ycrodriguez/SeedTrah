@@ -21,17 +21,3 @@ def pre_delete_update_producto(sender, instance: Prefactura, **kwargs):
 def pre_save_prefactura(sender, instance: Prefactura, **kwargs):
     fecha_limite = timezone.now() - timedelta(days=15)
     Prefactura.objects.filter(fecha__lte=fecha_limite).delete()
-
-# @receiver(post_save, sender=Prefactura)
-# def limitar_compra(sender, instance, **kwargs):
-#     cliente = instance.cliente
-#     product = instance.producto.first()
-#     hoy = timezone.now()
-#     limite = 100
-#     cantidad_comprada = Prefactura.objects.filter(
-#         cliente=cliente,
-#         producto=product,
-#         fecha__gte=hoy - timezone.timedelta(hours=24)).aggregate(total=Sum('cantidad'))['total'] or 0
-#     print(cantidad_comprada)
-#     if cantidad_comprada + instance.cantidad > limite:
-#         raise ValidationError(f"{cliente} ha superado el límite de compra de {product} en las últimas 24 horas.")

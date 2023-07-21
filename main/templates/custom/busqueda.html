@@ -1,0 +1,42 @@
+{% extends 'custom/base.html' %}
+{% load static %}
+{% block title %}Resultado de la Busqueda{% endblock %}
+
+{% block content %}
+    <h1 class="text-light text-center">Resultados</h1>
+    {% if results %}
+        {% for pro in results %}
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th class="text-light text-center" scope="col">Nombre</th>
+                    <th class="text-light text-center" scope="col">Descripcion</th>
+                    <th class="text-light text-center" scope="col">Presio</th>
+                    <th class="text-light text-center" scope="col">Comprar</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        {% if pro.imagen %}
+                            <img src="{{ pro.imagen.url }}"
+                                 class="img-responsive" width="300" height="200" style="border-radius: 10%">
+                        {% else %}
+                            <img src="{% static 'assets/seed-icon-free-vector.jpg' %}"
+                                 class="img-responsive" width="300" height="200" style="border-radius: 10%">
+                        {% endif %}
+                        <h6 class="text-light">{{ pro.semilla.nombre }}</h6>
+                    </td>
+                    <td><p class="text-light">Descripcion: {{ pro.descripcion }}</p></td>
+                    <td><p class="text-light">Presio: {{ pro.valor }}\Libra</p></td>
+                    <td><a href="/add_prefactura/{{ pro.pk }}/" class="btn btn-success">Lo quero</a></td>
+                </tr>
+                </tbody>
+            </table>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            <p class="text-center">No se encontraron resultados para "{{ query }}".</p>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -8,7 +8,7 @@
 {% block content %}
     {% if cliente %}
         {% if cliente.tipo == 'Persona Natural' %}
-            <form class="p-lg-5" method="POST" style="margin-top: 20%">
+            <form class="p-lg-5" method="POST" style="margin-top: 20%" id="form">
                 {% csrf_token %}
                 <div class="text-center">
                     <h4 class="text-light">Persona Natural</h4>
@@ -27,7 +27,7 @@
             </form>
         {% endif %}
         {% if cliente.tipo == 'Entidad Estatal' %}
-            <form class="p-lg-5" method="POST" style="margin-top: 15%">
+            <form class="p-lg-5" method="POST" style="margin-top: 15%" id="form">
                 {% csrf_token %}
                 <div class="text-center">
                     <h4 class="text-light">Entidad Estatal</h4>
@@ -84,3 +84,9 @@
         </div>
     {% endif %}
 {% endblock %}
+
+{% block scriptjs %}
+    {{ block.super }}
+    <script src="{% static 'js/persona_natural.js' %}"></script>
+{% endblock %}
+

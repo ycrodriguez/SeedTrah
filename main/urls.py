@@ -13,5 +13,6 @@ urlpatterns = [
     path('add_cliente/', login_required(AddCliente.as_view()), name='add_cliente'),
     path('add_prefactura/<int:pk>/', login_required(AddPrefactura.as_view()), name='add_prefactura'),
     path('delete_prefactura/<int:pk>/', login_required(DeletePrefactura.as_view())),
-    path('delete_cuenta/', login_required(DeleteCuenta.as_view()), name='delete_cuenta')
+    path('delete_cuenta/', login_required(DeleteCuenta.as_view()), name='delete_cuenta'),
+    path('buscar/', login_required(Search.as_view()), name='search'),
 ]

@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.db.models import Count, Sum
+from django.db.models import Count, Sum, Q
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.generic import ListView, CreateView
@@ -173,7 +173,6 @@ class AddPrefactura(ListView, CreateView):
         formPrefactura = PrefacturaForm(request.POST)
         if formPrefactura.is_valid():
             cantidad = formPrefactura.cleaned_data['cantidad']
-            lugar_recogida = formPrefactura.cleaned_data['lugar_recogida']
             costo_total = cantidad * producto.valor
             costo_unitario = cantidad * producto.valor
             context['limite'] = False
@@ -186,14 +185,13 @@ class AddPrefactura(ListView, CreateView):
                             costo_total=costo_total,
                             costo_unitario=costo_unitario,
                             cantidad=cantidad,
-                            lugar_recogida=lugar_recogida,
+                            lugar_recogida=almacen.direccion,
                             almacen=almacen,
                             cliente=cliente,
                         )
                         prefactura.save()
                         producto.prefactura_set.add(prefactura)
                         producto.cantidad_existente -= prefactura.cantidad
-
                         producto.save()
                         return redirect('prefacturas')
                 else:
@@ -217,3 +215,16 @@ class DeleteCuenta(ListView, CreateView):
         user = User.objects.get(pk=pk)
         user.delete()
         return redirect('login')
+
+
+class Search(ListView, CreateView):
+    def get(self, request, *args, **kwargs):
+        query = request.GET.get('q')
+        context = {}
+        context['query'] = query
+        if query:
+            results = Producto.objects.filter(Q(semilla__nombre__icontains=query) | Q(semilla__codigo__icontains=query))
+        else:
+            results = []
+        context['results'] = results
+        return render(request, 'custom/busqueda.html', context)
