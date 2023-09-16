@@ -165,7 +165,7 @@ MEDIA_ROOT = join(BASE_DIR, 'root', 'media')
 MEDIA_URL = 'media/'
 
 STATICFILES_DIRS = [
-    join(BASE_DIR / 'static'),
+    join(BASE_DIR, 'static'),
 ]
 
 # Default primary key field type

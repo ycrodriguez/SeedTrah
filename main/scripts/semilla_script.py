@@ -12,3 +12,4 @@ def save_semilla_from_xl():
         codigo = sheet.cell(row=i, column=1).value
         nombre = sheet.cell(row=i, column=2).value
         Semilla.objects.get_or_create(codigo=codigo, nombre=nombre)
+    
